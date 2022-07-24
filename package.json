@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/work-shift/schedule.git"
+    "url": "git+https://github.com/work-shift/sched.git"
   },
   "author": "Dmitry N. Medvedev <dmitry.medvedev@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/work-shift/schedule/issues"
+    "url": "https://github.com/work-shift/sched/issues"
   },
-  "homepage": "https://github.com/work-shift/schedule#readme",
+  "homepage": "https://github.com/work-shift/sched#readme",
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@babel/eslint-parser": "^7.18.9",
