@@ -4,7 +4,7 @@ damn simple shared calendar for tiny groups.
 
 ## functionality
 
-1. authentication via WebAuthN;
+1. [authentication](docs/AUTH.md) via WebAuthN;
 2. authorization via google macaroons;
 3. protocol: secure webwockets
 4. groups:
