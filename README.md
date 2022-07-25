@@ -23,3 +23,9 @@ damn simple shared calendar for tiny groups.
    - annual subscription
    - personalized verwendungszwek ( for bank transfer )
    - banking account for payments
+
+## TLS certificate for local development
+
+```bash
+mkcert -ecdsa -cert-file ./localhost.cert.pem -key-file ./localhost.key.pem 127.0.0.1
+```
