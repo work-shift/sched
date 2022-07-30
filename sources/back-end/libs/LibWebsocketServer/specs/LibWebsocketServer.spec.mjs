@@ -1,8 +1,19 @@
 import util from 'node:util';
 import {
+  join,
   resolve,
 } from 'node:path';
+import {
+  tmpdir,
+} from 'node:os';
+import {
+  mkdtemp,
+  rm,
+} from 'node:fs/promises';
 import dotenv from 'dotenv';
+import {
+  execa,
+} from 'execa';
 import {
   before,
   after,
@@ -31,8 +42,40 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
   }));
   let server = null;
   let serverConfig = null;
+  let tmpDir = null;
 
-  const getServerConfig = () => Object.freeze({
+  const generateTLS = async () => {
+    const tmpPath = await mkdtemp(join(tmpdir(), 'tls-'));
+    const keyFileName = join(tmpPath, 'localhost.key.pem');
+    const crtFileName = join(tmpPath, 'localhost.cert.pem');
+
+    debuglog({ tmpPath });
+
+    const stdOut = await execa('mkcert', [
+      '-ecdsa',
+      '-cert-file',
+      crtFileName,
+      '-key-file',
+      keyFileName,
+      '127.0.0.1',
+    ], {
+      all: true,
+    });
+
+    debuglog(stdOut.all);
+
+    return {
+      tmpPath,
+      keyFileName,
+      crtFileName,
+    };
+  };
+
+  const deleteTLS = async (tmpPath = null) => await rm(tmpPath, {
+    recursive: true,
+  });
+
+  const getServerConfig = () => ({
     server: {
       host: process.env.WS_HOST,
       port: parseInt(process.env.WS_PORT, 10),
@@ -44,19 +87,37 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
     },
   });
 
-  before(function doBefore() {
+  before(async function doBefore() {
     dotenv.config({
       path: './specs/.env',
     });
 
+    const {
+      tmpPath,
+      keyFileName,
+      crtFileName,
+    } = await generateTLS();
+
+    tmpDir = tmpPath;
+
     serverConfig = getServerConfig();
+
+    serverConfig.server.tls.keyFileName = keyFileName;
+    serverConfig.server.tls.crtFileName = crtFileName;
+
     server = new LibWebsocketServer(serverConfig);
 
     server.start();
   });
 
-  after(function doAfter() {
+  after(async function doAfter() {
     server.stop();
+
+    try {
+      await deleteTLS(tmpDir);
+    } catch (error) {
+      debuglog(error);
+    }
   });
 
   it('should start/stop the server', function startStopServer() {
