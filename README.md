@@ -29,3 +29,7 @@ damn simple shared calendar for tiny groups.
 ```bash
 mkcert -ecdsa -cert-file ./localhost.cert.pem -key-file ./localhost.key.pem 127.0.0.1
 ```
+
+## components
+
+- [WebSocketServer.md](sources/back-end/libs/LibWebsocketServer/WebSocketServer.md)
