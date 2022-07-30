@@ -27,7 +27,7 @@ damn simple shared calendar for tiny groups.
 ## TLS certificate for local development
 
 ```bash
-mkcert -ecdsa -cert-file ./localhost.cert.pem -key-file ./localhost.key.pem 127.0.0.1
+mkcert -ecdsa -cert-file ./sources/back-end/libs/LibWebsocketServer/specs/etc/ssl/certs/localhost.cert.pem -key-file ./sources/back-end/libs/LibWebsocketServer/specs/etc/ssl/certs/localhost.key.pem 127.0.0.1
 ```
 
 ## components
