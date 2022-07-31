@@ -23,11 +23,18 @@ import {
 import {
   expect,
 } from 'chai';
+import uWS from 'uWebSockets.js';
 // eslint-disable-next-line no-unused-vars
 import WebSocket from 'ws';
 import {
+  nanoid,
+} from 'nanoid';
+import {
   LibWebsocketServer,
 } from '../LibWebsocketServer.mjs';
+import {
+  getHandlersConfig,
+} from '../getHandlersConfig.mjs';
 
 describe('LibWebsocketServer', function describeLibWebsocketServer() {
   const debuglog = util.debug(`${LibWebsocketServer.name}:specs`);
@@ -40,7 +47,7 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
     maxArrayLength: Infinity,
     maxStringLength: Infinity,
   }));
-  let server = null;
+  // let server = null;
   let serverConfig = null;
   let tmpDir = null;
 
@@ -84,6 +91,7 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
         crtFileName: resolve(process.env.WS_TLS_CERT_FILE_NAME),
         passphrase: process.env.WS_TLS_PASSPHRASE,
       },
+      handlers: getHandlersConfig(uWS, debuglog),
     },
   });
 
@@ -101,18 +109,11 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
     tmpDir = tmpPath;
 
     serverConfig = getServerConfig();
-
     serverConfig.server.tls.keyFileName = keyFileName;
     serverConfig.server.tls.crtFileName = crtFileName;
-
-    server = new LibWebsocketServer(serverConfig);
-
-    server.start();
   });
 
   after(async function doAfter() {
-    server.stop();
-
     try {
       await deleteTLS(tmpDir);
     } catch (error) {
@@ -120,8 +121,73 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
     }
   });
 
-  it('should start/stop the server', function startStopServer() {
-    expect(server).to.exist;
-    expect(server.IS_RUNNING).to.equal(true);
+  // it('should start/stop the server', function startStopServer() {
+  //   expect(server).to.exist;
+  //   expect(server.IS_RUNNING).to.equal(true);
+  // });
+
+  it('should ping all handlers', async function testHandlers() {
+    const doPingPong = async (client = null) => new Promise((ok, fail) => {
+      const pingMessage = Buffer.from(nanoid());
+      const isPingMasked = true;
+
+      client.on('error', (err) => {
+        debuglog(['client:on:error =>', err]);
+
+        return fail(err);
+      });
+
+      client.on('open', () => {
+        client.ping(pingMessage, isPingMasked, function pingFrameSent(networkError = null) {
+          if (networkError !== null) {
+            debuglog({
+              networkError,
+            });
+
+            return fail(networkError);
+          }
+
+          debuglog('pingFrameSent');
+
+          return undefined;
+        });
+      });
+
+      client.on('pong', (dataBuffer = null) => {
+        debuglog('on:pong', dataBuffer.toString());
+
+        client.close();
+      });
+
+      client.on('close', (code = null, reason = null) => {
+        debuglog('client:close', code, `"${reason.toString()}"`);
+
+        return ok();
+      });
+    });
+
+    const aServer = new LibWebsocketServer(serverConfig);
+
+    await aServer.start();
+
+    for await (const [, handlerContents] of Object.entries(serverConfig.server.handlers)) {
+      const {
+        path,
+      } = handlerContents;
+
+      // debuglog([path, handlerContents]);
+
+      const aServerAddress = `wss://${serverConfig.server.host}:${serverConfig.server.port}${path}`;
+      const aServerProtocols = Object.freeze([]);
+      const aServerOpts = Object.freeze({});
+      let client = new WebSocket(aServerAddress, aServerProtocols, aServerOpts);
+
+      await doPingPong(client);
+
+      client = null;
+    }
+    aServer.stop();
+
+    expect(true).to.be.true;
   });
 });
