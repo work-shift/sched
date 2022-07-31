@@ -26,8 +26,6 @@ export class LibWebsocketServer {
     }
 
     this.#config = Object.freeze({ ...config });
-
-    // this.#inspect(this.#config);
   }
 
   get IS_RUNNING() {
