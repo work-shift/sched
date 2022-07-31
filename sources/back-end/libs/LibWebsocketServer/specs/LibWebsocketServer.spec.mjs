@@ -47,7 +47,6 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
     maxArrayLength: Infinity,
     maxStringLength: Infinity,
   }));
-  // let server = null;
   let serverConfig = null;
   let tmpDir = null;
 
@@ -121,11 +120,6 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
     }
   });
 
-  // it('should start/stop the server', function startStopServer() {
-  //   expect(server).to.exist;
-  //   expect(server.IS_RUNNING).to.equal(true);
-  // });
-
   it('should ping all handlers', async function testHandlers() {
     const doPingPong = async (client = null) => new Promise((ok, fail) => {
       const pingMessage = Buffer.from(nanoid());
@@ -174,8 +168,6 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
       const {
         path,
       } = handlerContents;
-
-      // debuglog([path, handlerContents]);
 
       const aServerAddress = `wss://${serverConfig.server.host}:${serverConfig.server.port}${path}`;
       const aServerProtocols = Object.freeze([]);
