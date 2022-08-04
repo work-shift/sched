@@ -5,7 +5,7 @@
   "type": "module",
   "engines": {
     "node": "=18.7.0",
-    "pnpm": "=7.7.1"
+    "pnpm": "=7.8.0"
   },
   "engineStrict": true,
   "volta": {
@@ -24,6 +24,7 @@
   "author": "Dmitry N. Medvedev <dmitry.medvedev@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@simplewebauthn/server": "^5.4.0",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.10.0"
   },
   "devDependencies": {
@@ -61,6 +62,10 @@
     "reporter": "spec",
     "noConfig": true,
     "noOpts": true,
+    "require": [
+      "specs/mocha/mocha.mochaGlobalSetup.mjs",
+      "specs/mocha/mocha.mochaGlobalTeardown.mjs"
+    ],
     "exclude": [
       "**/node_modules/**/*"
     ],
