@@ -120,6 +120,7 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
     }
   });
 
+  // FIXME: testHandlers -> shouldPingPaths
   it('should ping all handlers', async function testHandlers() {
     const doPingPong = async (client = null) => new Promise((ok, fail) => {
       const pingMessage = Buffer.from(nanoid());
@@ -179,6 +180,16 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
       client = null;
     }
     aServer.stop();
+
+    // FIXME: remove this
+    expect(true).to.be.true;
+  });
+
+  it('should register account', async function shouldRegisterAccount() {
+    const accountRegistrationServer = new LibWebsocketServer(serverConfig);
+
+    await accountRegistrationServer.start();
+    accountRegistrationServer.stop();
 
     expect(true).to.be.true;
   });
