@@ -21,6 +21,7 @@ import {
   it,
 } from 'mocha';
 import {
+  // eslint-disable-next-line no-unused-vars
   expect,
 } from 'chai';
 import uWS from 'uWebSockets.js';
@@ -178,10 +179,8 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
 
       client = null;
     }
-    aServer.stop();
 
-    // FIXME: remove this
-    expect(true).to.be.true;
+    aServer.stop();
   });
 
   // it('should register account', async function shouldRegisterAccount() {
