@@ -53,7 +53,7 @@ export async function mochaGlobalSetup() {
   serverConfig.server.tls.keyFileName = process.env.WS_TLS_KEY_FILE_NAME;
   serverConfig.server.tls.crtFileName = process.env.WS_TLS_CERT_FILE_NAME;
 
-  this.accountRegistrationServer = new LibWebsocketServer(serverConfig);
+  this.wss = new LibWebsocketServer(serverConfig);
 
-  return await this.accountRegistrationServer.start();
+  return await this.wss.start();
 }

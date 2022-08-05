@@ -7,7 +7,7 @@ const deleteTLS = async (tmpPath = null) => await rm(tmpPath, {
 });
 
 export async function mochaGlobalTeardown() {
-  this.accountRegistrationServer.stop();
+  this.wss.stop();
 
   return await deleteTLS(process.env.WS_TLS_ROOT_PATH);
 }
