@@ -7,13 +7,15 @@ import {
 import {
   expect,
 } from 'chai';
-import WebSocket from 'ws';
 import {
   LibWebsocketServer,
 } from '../LibWebsocketServer.mjs';
 import {
   getServerConfig,
 } from './helpers/getServerConfig.mjs';
+import {
+  newClient,
+} from './helpers/newClient.mjs';
 
 describe('LibWebsocketServer', function describeLibWebsocketServer() {
   const debuglog = util.debug(`${LibWebsocketServer.name}:specs`);
@@ -21,9 +23,6 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
 
   before(async function doBefore() {
     serverConfig = getServerConfig(debuglog);
-
-    serverConfig.server.tls.keyFileName = process.env.WS_TLS_KEY_FILE_NAME;
-    serverConfig.server.tls.crtFileName = process.env.WS_TLS_CERT_FILE_NAME;
   });
 
   it('should register account', async function shouldRegisterAccount() {
@@ -59,28 +58,16 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
       });
     });
 
-    const accountRegistrationServer = new LibWebsocketServer(serverConfig);
-
-    await accountRegistrationServer.start();
-
     //
     const {
       path,
     } = serverConfig.server.handlers.REGISTER_ACCOUNT;
-    const accountRegistrationServerAddress = `wss://${serverConfig.server.host}:${serverConfig.server.port}${path}`;
-    const accountRegistrationServerProtocols = Object.freeze([]);
-    const accountRegistrationServerOpts = Object.freeze({});
-    let client = new WebSocket(
-      accountRegistrationServerAddress,
-      accountRegistrationServerProtocols,
-      accountRegistrationServerOpts,
-    );
+    let client = newClient(serverConfig, path);
 
     await doRegisterAccount(client);
 
     //
     client = null;
-    accountRegistrationServer.stop();
 
     // FIXME: remove it
     expect(true).to.be.true;
