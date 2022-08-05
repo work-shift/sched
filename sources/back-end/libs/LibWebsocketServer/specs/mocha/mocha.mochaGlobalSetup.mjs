@@ -1,3 +1,4 @@
+import util from 'node:util';
 import {
   mkdtemp,
 } from 'node:fs/promises';
@@ -11,6 +12,12 @@ import {
   execa,
 } from 'execa';
 import * as dotenv from 'dotenv';
+import {
+  getServerConfig,
+} from '../helpers/getServerConfig.mjs';
+import {
+  LibWebsocketServer,
+} from '../../LibWebsocketServer.mjs';
 
 const generateTLS = async () => {
   const tmpPath = await mkdtemp(join(tmpdir(), 'tls-'));
@@ -38,5 +45,15 @@ export async function mochaGlobalSetup() {
     path: './specs/.env',
   });
 
-  return await generateTLS();
+  await generateTLS();
+
+  const debuglog = util.debug(`${LibWebsocketServer.name}:specs`);
+  const serverConfig = getServerConfig(debuglog);
+
+  serverConfig.server.tls.keyFileName = process.env.WS_TLS_KEY_FILE_NAME;
+  serverConfig.server.tls.crtFileName = process.env.WS_TLS_CERT_FILE_NAME;
+
+  this.accountRegistrationServer = new LibWebsocketServer(serverConfig);
+
+  return await this.accountRegistrationServer.start();
 }

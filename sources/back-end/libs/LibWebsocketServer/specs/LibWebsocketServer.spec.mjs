@@ -19,6 +19,9 @@ import {
 import {
   getServerConfig,
 } from './helpers/getServerConfig.mjs';
+import {
+  newClient,
+} from './helpers/newClient.mjs';
 
 describe('LibWebsocketServer', function describeLibWebsocketServer() {
   const debuglog = util.debug(`${LibWebsocketServer.name}:specs`);
@@ -26,9 +29,6 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
 
   before(async function doBefore() {
     serverConfig = getServerConfig(debuglog);
-
-    serverConfig.server.tls.keyFileName = process.env.WS_TLS_KEY_FILE_NAME;
-    serverConfig.server.tls.crtFileName = process.env.WS_TLS_CERT_FILE_NAME;
   });
 
   it('should ping all handlers', async function shouldPingPaths() {
@@ -71,25 +71,16 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
       });
     });
 
-    const aServer = new LibWebsocketServer(serverConfig);
-
-    await aServer.start();
-
     for await (const [, handlerContents] of Object.entries(serverConfig.server.handlers)) {
       const {
         path,
       } = handlerContents;
 
-      const aServerAddress = `wss://${serverConfig.server.host}:${serverConfig.server.port}${path}`;
-      const aServerProtocols = Object.freeze([]);
-      const aServerOpts = Object.freeze({});
-      let client = new WebSocket(aServerAddress, aServerProtocols, aServerOpts);
+      let client = newClient(serverConfig, path);
 
       await doPingPong(client);
 
       client = null;
     }
-
-    aServer.stop();
   });
 });
