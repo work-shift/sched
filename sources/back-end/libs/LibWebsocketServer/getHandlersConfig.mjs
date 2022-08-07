@@ -11,8 +11,8 @@ import {
   Paths,
 } from './handlers/Paths.mjs';
 
-export const getHandlersConfig = (uWS = null, debuglog = () => {}) => {
-  const registerAccountHandler = RegisterAccountHandler(uWS, debuglog);
+export const getHandlersConfig = (uWS = null, rpConfig = null, debuglog = () => {}) => {
+  const registerAccountHandler = RegisterAccountHandler(rpConfig, debuglog);
 
   return {
     REGISTER_ACCOUNT: {

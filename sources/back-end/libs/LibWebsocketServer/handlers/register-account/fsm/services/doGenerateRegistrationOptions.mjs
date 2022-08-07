@@ -15,8 +15,8 @@ export const doGenerateRegistrationOptions = (debuglog = () => {}) => (ctx, evt)
   } = evt.ws.__schedule__;
 
   const registrationOptions = generateRegistrationOptions({
-    rpName: 'RP NAME',
-    rpID: 'RP ID',
+    rpID: ctx.rp.id,
+    rpName: ctx.rp.name,
     userID: wsid,
     userName: wsid,
     attestationType: 'indirect',

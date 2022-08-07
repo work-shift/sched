@@ -12,11 +12,10 @@ import {
 } from './fsm/services/doSendToClient.mjs';
 
 class RegisterAccountHandlerClass {
-  #uWS = null;
+  #rpConfig = null;
   // eslint-disable-next-line class-methods-use-this
   #debuglog = () => {};
   #config = {};
-  // #context = {};
   #adgs = {
     actions: {},
     delays: {},
@@ -29,8 +28,8 @@ class RegisterAccountHandlerClass {
   #IS_BINARY = true;
   #SHOULD_COMPRESS = false;
 
-  constructor(uWS = null, debuglog = () => {}) {
-    this.#uWS = uWS;
+  constructor(rpConfig = null, debuglog = () => {}) {
+    this.#rpConfig = rpConfig;
     this.#debuglog = debuglog;
 
     this.#adgs.services.doGenerateRegistrationOptions = doGenerateRegistrationOptions(this.#debuglog);
@@ -50,6 +49,7 @@ class RegisterAccountHandlerClass {
     const cfg = Object.assign(Object.create(null), this.#config);
     const ctx = {
       ws,
+      rp: Object.assign(Object.create(null), this.#rpConfig),
     };
 
     // FIXME: remove dangle
@@ -80,4 +80,4 @@ class RegisterAccountHandlerClass {
   }
 }
 
-export const RegisterAccountHandler = (uWS = null, debuglog = () => {}) => (new RegisterAccountHandlerClass(uWS, debuglog));
+export const RegisterAccountHandler = (rpConfig = null, debuglog = () => {}) => (new RegisterAccountHandlerClass(rpConfig, debuglog));
