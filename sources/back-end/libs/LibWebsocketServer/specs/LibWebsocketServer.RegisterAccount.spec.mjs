@@ -1,6 +1,5 @@
 import util from 'node:util';
 import {
-  before,
   describe,
   it,
 } from 'mocha';
@@ -11,19 +10,14 @@ import {
   LibWebsocketServer,
 } from '../LibWebsocketServer.mjs';
 import {
-  getServerConfig,
-} from './helpers/getServerConfig.mjs';
-import {
   newClient,
 } from './helpers/newClient.mjs';
+import {
+  Paths,
+} from '../handlers/Paths.mjs';
 
 describe('LibWebsocketServer', function describeLibWebsocketServer() {
   const debuglog = util.debug(`${LibWebsocketServer.name}:specs`);
-  let serverConfig = null;
-
-  before(async function doBefore() {
-    serverConfig = getServerConfig(debuglog);
-  });
 
   it('should register account', async function shouldRegisterAccount() {
     /**
@@ -59,10 +53,9 @@ describe('LibWebsocketServer', function describeLibWebsocketServer() {
     });
 
     //
-    const {
-      path,
-    } = serverConfig.server.handlers.REGISTER_ACCOUNT;
-    let client = newClient(serverConfig, path);
+    const host = process.env.WS_HOST;
+    const port = parseInt(process.env.WS_PORT, 10);
+    let client = newClient(host, port, Paths.REGISTER_ACCOUNT);
 
     await doRegisterAccount(client);
 
