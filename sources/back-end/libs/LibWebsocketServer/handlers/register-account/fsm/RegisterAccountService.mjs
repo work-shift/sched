@@ -44,30 +44,3 @@ export class RegisterAccountService {
       });
   }
 }
-
-// = (
-//   config = null,
-//   context = null,
-//   adgs = null,
-//   debuglog = () => {},
-// ) => interpret(
-//   RegisterAccountMachine(config, context, adgs, debuglog),
-// )
-//   .onTransition((state) => {
-//     debuglog(`RegisterAccountService.onTransition: ${state.value}`);
-//   })
-//   .onChange((ctx, prevCtx) => {
-//     debuglog(`RegisterAccountService.onChange: ${JSON.stringify(prevCtx)} -> ${JSON.stringify(ctx)}`);
-//   })
-//   .onDone((doneEvent) => {
-//     debuglog('RegisterAccountService.onDone', doneEvent);
-//   })
-//   .onEvent((event) => {
-//     debuglog('RegisterAccountService.onEvent', event);
-//   })
-//   .onSend((sendEvent) => {
-//     debuglog('RegisterAccountService.onSend', sendEvent);
-//   })
-//   .onStop(() => {
-//     debuglog('RegisterAccountService.onStop');
-//   });

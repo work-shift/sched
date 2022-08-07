@@ -45,6 +45,7 @@ export async function mochaGlobalSetup() {
     path: './specs/.env',
   });
 
+  // FIXME: pass hostname, port
   await generateTLS();
 
   const debuglog = util.debug(`${LibWebsocketServer.name}:specs`);
