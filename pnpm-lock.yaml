@@ -20,6 +20,7 @@ importers:
       eslint-scope: ^7.1.1
       eslint-utils: ^3.0.0
       eslint-visitor-keys: ^3.3.0
+      snyk: ^1.984.0
     devDependencies:
       '@babel/core': 7.18.9
       '@babel/eslint-parser': 7.18.9_454u7sltq2wfyzqnoclqps3oeu
@@ -37,6 +38,7 @@ importers:
       eslint-scope: 7.1.1
       eslint-utils: 3.0.0_eslint@8.20.0
       eslint-visitor-keys: 3.3.0
+      snyk: 1.984.0
 
   sources/back-end/libs/LibWebsocketServer:
     specifiers:
@@ -3430,6 +3432,12 @@ packages:
 
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
+    dev: true
+
+  /snyk/1.984.0:
+    resolution: {integrity: sha512-e72gNXx6Epj1Tp8TEWoLJHEqkPTr370GvJQj/o73YlGFCILqfzFiFGq5cla8UffFM+mHEhuQDX4jAH53x2cqYA==}
+    engines: {node: '>=12'}
+    hasBin: true
     dev: true
 
   /sprintf-js/1.0.3:
