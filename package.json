@@ -4,12 +4,12 @@
   "description": "Work Shift Schedule",
   "type": "module",
   "engines": {
-    "node": "=18.7.0",
-    "pnpm": "=7.9.0"
+    "node": "19.0.0",
+    "pnpm": "7.14.0"
   },
   "engineStrict": true,
   "volta": {
-    "node": "18.7.0"
+    "node": "19.0.0"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm"
