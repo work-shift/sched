@@ -1,0 +1,37 @@
+:root {
+  /* nord0 in palette */
+	--theme-black: #2E3440;
+  /* nord1 in palette */
+	--theme-dark_gray: #3B4252;
+  /* nord2 in palette */
+	--theme-gray: #434C5E;
+  /* nord3 in palette */
+	--theme-light_gray: #4C566A;
+  /* out of palette */
+	--theme-light_gray_bright: #616E88;
+  /* nord4 in palette */
+	--theme-darkest_white: #D8DEE9;
+  /* nord5 in palette */
+	--theme-darker_white: #E5E9F0;
+  /* nord6 in palette */
+	--theme-white: #ECEFF4; 
+  /* nord7 in palette */
+	--theme-teal: #8FBCBB; 
+  /* nord8 in palette */
+	--theme-off_blue: #88C0D0;
+  /* nord9 in palette */
+	--theme-glacier: #81A1C1;
+  /* nord10 in palette */
+	--theme-blue: #5E81AC;
+  /* nord11 in palette */
+	--theme-red: #BF616A;
+  /* nord12 in palette */
+	--theme-orange: #D08770;
+  /* nord13 in palette */
+	--theme-yellow: #EBCB8B;
+  /* nord14 in palette */
+	--theme-green: #A3BE8C;
+  /* nord15 in palette */
+	--theme-purple: #B48EAD;
+	--theme-none: transparent;
+}
