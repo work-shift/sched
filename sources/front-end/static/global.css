@@ -3,12 +3,12 @@
 
 :root {
   --main-font-family: "Inter var experimental";
-  --main-color: black;
-  --main-background-color: hsl(0deg 0% 97%);
+  --main-color: var(--theme-white);
+  --main-background-color: var(--theme-black);
   --main-grid-gap: min(0.25vh, 0.25vw);
 
-  --header-height: 4vh;
-  --footer-height: 4vh;
+  --main-height: 1fr;
+  --footer-height: 8vh;
 }
 
 * {
@@ -35,12 +35,11 @@ html {
 body {
 /* letter-spacing: 0.1em; */
   display: grid;
-  grid-template-columns: 12vw 1fr 3vw;
-  grid-template-rows: var(--header-height) 1fr var(--footer-height);
+  grid-template-columns: 1fr;
+  grid-template-rows: var(--main-height) var(--footer-height);
   grid-template-areas:
-    '. header .'
-    'left main right'
-    '. footer .'
+    'main'
+    'footer'
   ;
   gap: var(--main-grid-gap);
 
@@ -61,10 +60,6 @@ body {
   font-feature-settings: "case" 0, "cpsp" 0, "dlig" 0, "frac" 0, "dnom" 0, "numr" 0, "salt" 0, "subs" 0, "sups" 0, "tnum", "zero", "ss01", "ss02" 0, "ss03" 0, "ss04" 0, "cv01" 0, "cv02" 0, "cv03" 0, "cv04" 0, "cv05" 0, "cv06" 0, "cv07", "cv08" 0, "cv09" 0, "cv10" 0, "cv11" 0, "calt", "ccmp", "kern";
 }
 
-header {
-  grid-area: header;
-}
-
 main {
   grid-area: main;
   display: flex;
@@ -76,21 +71,24 @@ main {
 
   pointer-events: all;
   user-select: auto;
-}
 
-section#left {
-  grid-area: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: stretch;
-  gap: min(1vh, 1vw);
-}
-
-section#right {
-  grid-area: right;
+  padding: 0.125vh 0.125vw;
 }
 
 footer {
   grid-area: footer;
+}
+
+svg {
+  pointer-events: none !important;
+}
+
+button {
+  background-color: var(--theme-light_gray_bright);
+  border: none;
+  padding: max(1vh, 1vw);
+}
+
+button:active {
+  background-color: var(--theme-black);
 }

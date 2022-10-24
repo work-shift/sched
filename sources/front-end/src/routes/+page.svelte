@@ -1,2 +1,44 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+  import {
+    onMount,
+    onDestroy,
+  } from 'svelte';
+  import Group from '$lib/ctrls/Group/index.svelte';
+  import {
+    GroupStore,
+  } from '$lib/stores/groups.store.js';
+
+  /** @type {Array<Object>} */
+  let groups = [];
+  const unsubscribeGroupStore = GroupStore.subscribe((newState) => {
+    groups = Array
+      .from(newState)
+      .map(([id, groupInfo]) => {
+        return ({
+          ...{id},
+          ...groupInfo,
+        })
+      })
+      .sort((a, b) => a.createdTs - b.createdTs);
+  });
+
+  onMount(() => {});
+
+  onDestroy(() => {
+    unsubscribeGroupStore();
+  });
+</script>
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+  }
+</style>
+
+<ul>
+  {#each groups as groupInfo}
+    <Group {groupInfo} />
+  {/each}
+</ul>

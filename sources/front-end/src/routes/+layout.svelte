@@ -6,28 +6,29 @@
     onMount,
     onDestroy,
   } from 'svelte';
+  import {
+    GroupStore,
+  } from '$lib/stores/groups.store.js';
 
   /** @type {import('./$types').PageData} */
   export let data;
 
-  onMount(() => {
-    if (inBrowser === true) {}
+  const unsubscribeGroupStore = GroupStore.subscribe((newState) => {
+    console.log('GroupStore:', newState);
   });
 
-  onDestroy(() => {
-    if (inBrowser === true) {}
+  $: if (data) {
+    GroupStore.populate(data?.groups);
+  }
 
+  onMount(() => {});
+
+  onDestroy(() => {
+    unsubscribeGroupStore();
   });
 </script>
 
-<style>
-</style>
-
-<header>header</header>
-<section id='left'>
-</section>
 <main>
   <slot />
 </main>
-<section id='right'>right</section>
-<footer>footer</footer>
+<!-- <footer>footer</footer> -->
