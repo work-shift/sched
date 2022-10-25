@@ -22,6 +22,10 @@
       .sort((a, b) => a.createdTs - b.createdTs);
   });
 
+  const handleDeleteGroup = (groupId) => {
+    GroupStore.removeGroup(groupId);
+  };
+
   onMount(() => {});
 
   onDestroy(() => {
@@ -32,13 +36,21 @@
 <style>
   ul {
     display: flex;
+    flex: 1 0 100%;
     flex-direction: column;
     gap: 1vh;
+
+    overflow-y:scroll;
+
+    pointer-events: all;
   }
 </style>
 
 <ul>
   {#each groups as groupInfo}
-    <Group {groupInfo} />
+    <Group
+      {groupInfo}
+      on:click={() => handleDeleteGroup(groupInfo.id)}
+    />
   {/each}
 </ul>

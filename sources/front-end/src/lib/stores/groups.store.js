@@ -1,4 +1,7 @@
 import {
+  browser as inBrowser,
+} from '$app/environment';
+import {
   writable,
 } from 'svelte/store';
 
@@ -18,6 +21,22 @@ function createGroupStore() {
           createdTs,
           name,
         });
+      }
+
+      return currentState;
+    }),
+    addGroup: () => update((currentState) => {
+      const id = crypto.randomUUID();
+
+      currentState.set(id, { id, createdTs: Date.now(), name: 'N/A' });
+
+      return currentState;
+    }),
+    removeGroup: (groupId) => update((currentState) => {
+      const isSuccess = currentState.delete(groupId);
+
+      if (isSuccess === false) {
+        console.log(`.removeGroup(${groupId}) -- inexistent groupId`)
       }
 
       return currentState;

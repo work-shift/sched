@@ -1,6 +1,11 @@
 <script>
+  import {
+    createEventDispatcher,
+  } from 'svelte';
   import TrashIcon from "$lib/icons/TrashIcon.svelte";
   import IconButton from '$lib/IconButton/index.svelte';
+
+  const dispatch = createEventDispatcher();
 
   /** @type {Array<String>} */
   export let groupInfo;
@@ -11,6 +16,10 @@
   $: if (groupInfo) {
     isVirtual = false;
   }
+
+  const handleClick = () => {
+    dispatch('click');
+  };
 </script>
 
 <style>
@@ -23,10 +32,11 @@
     ;
 
     width: 100%;
-    height: 10vh;
+    min-height: var(--group-height);
+    height: var(--group-height);
 
     border: 1px dashed transparent;
-    border-radius: max(0.25vh, 0.25vw);
+    border-radius: var(--main-border-radius);
     
     background-color: var(--theme-gray);
 
@@ -67,8 +77,8 @@
   </div>
   <div class='ctrls'>
     {#if isVirtual === false}
-      <IconButton>
-        <TrashIcon color='red' />
+      <IconButton on:click={handleClick}>
+        <TrashIcon color='var(--theme-icon-svg-color)' />
       </IconButton>
     {/if}
   </div>
