@@ -6,9 +6,16 @@
   --main-color: var(--theme-white);
   --main-background-color: var(--theme-black);
   --main-grid-gap: min(0.25vh, 0.25vw);
+  --main-border-radius: max(0.25vh, 0.25vw);
+
+  --main-button-height: 8vh;
 
   --main-height: 1fr;
   --footer-height: 8vh;
+
+  --group-height: 20vh;
+
+  --theme-icon-svg-color: var(--main-color);
 }
 
 * {
@@ -43,7 +50,8 @@ body {
   ;
   gap: var(--main-grid-gap);
 
-  padding: min(0.5vh, 0.5vw);
+  padding: min(0.95vh, 0.95vw);
+  padding-bottom: min(1.5vh, 1.5vw);
 
   width: 100vw;
   height: 100vh;

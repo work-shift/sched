@@ -1,7 +1,7 @@
 <script>
-  import {
-    browser as inBrowser,
-  } from '$app/environment';
+  // import {
+  //   browser as inBrowser,
+  // } from '$app/environment';
   import {
     onMount,
     onDestroy,
@@ -9,6 +9,7 @@
   import {
     GroupStore,
   } from '$lib/stores/groups.store.js';
+  import Footer from '$lib/Footer/index.svelte';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -31,4 +32,4 @@
 <main>
   <slot />
 </main>
-<!-- <footer>footer</footer> -->
+<Footer />
