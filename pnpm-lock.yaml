@@ -95,6 +95,7 @@ importers:
       prettier-plugin-svelte: ^2.8.0
       svelte: ^3.52.0
       svelte-check: ^2.9.2
+      svelte-gestures: ^1.4.1
       typescript: ^4.8.4
       vite: ^3.1.8
       xstate: ^4.33.6
@@ -103,6 +104,7 @@ importers:
       '@types/d3': 7.4.0
       d3: 7.6.1
       inter-ui: 3.19.3
+      svelte-gestures: 1.4.1
       xstate: 4.33.6
     devDependencies:
       '@playwright/test': 1.27.1
@@ -4956,6 +4958,10 @@ packages:
       - stylus
       - sugarss
     dev: true
+
+  /svelte-gestures/1.4.1:
+    resolution: {integrity: sha512-TAmfcz+DgdfrRDFSQ9UsXxhqDjQR7LaUaALauqITaTCVSHPWXIZ9WSBPP6DrXh9MYqgVZwy85wJdv7NQPwsZfA==}
+    dev: false
 
   /svelte-hmr/0.15.0_svelte@3.52.0:
     resolution: {integrity: sha512-Aw21SsyoohyVn4yiKXWPNCSW2DQNH/76kvUnE9kpt4h9hcg9tfyQc6xshx9hzgMfGF0kVx0EGD8oBMWSnATeOg==}

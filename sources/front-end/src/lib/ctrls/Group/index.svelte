@@ -4,21 +4,43 @@
   } from 'svelte';
   import TrashIcon from "$lib/icons/TrashIcon.svelte";
   import IconButton from '$lib/IconButton/index.svelte';
+  import GroupName from '$lib/ctrls/Group/GroupName.svelte';
+  import {
+    doubletap,
+  } from '$lib/usages/doubletap';
 
   const dispatch = createEventDispatcher();
 
   /** @type {Array<String>} */
   export let groupInfo;
 
-  let isVirtual = true;
-  /** @type {Object} */
+  let isNameInEditMode = false;
 
+  let isVirtual = true;
+
+  /** @type {Object} */
   $: if (groupInfo) {
     isVirtual = false;
   }
 
-  const handleClick = () => {
+  const handleDeleteClick = () => {
     dispatch('click');
+  };
+
+  const handleNameDoubleClick = (event) => {
+    isNameInEditMode = true;
+  };
+
+  const handleNameChange = (/** @type {CustomEvent} */ event) => {
+    const {
+      detail: {
+        payload,
+      },
+    } = event;
+
+    dispatch('nameChanged', {
+      payload,
+    });
   };
 </script>
 
@@ -58,6 +80,13 @@
 
   .name {
     grid-area: name;
+    pointer-events: all;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+
+    background-color: brown;
   }
 
   .ctrls {
@@ -68,16 +97,16 @@
 </style>
 
 <li id={groupInfo.id} class:isVirtual>
-  <div class='name'>
-    {#if isVirtual === false}
-      {groupInfo.name}
-    {:else}
-      &nbsp;
-    {/if}
+  <div class='name' use:doubletap on:doubletap={handleNameDoubleClick}>
+    <GroupName
+      name={groupInfo.name}
+      {isNameInEditMode}
+      on:change={handleNameChange}
+    />
   </div>
   <div class='ctrls'>
     {#if isVirtual === false}
-      <IconButton on:click={handleClick}>
+      <IconButton on:click={handleDeleteClick}>
         <TrashIcon color='var(--theme-icon-svg-color)' />
       </IconButton>
     {/if}
