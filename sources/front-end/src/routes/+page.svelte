@@ -26,6 +26,14 @@
     GroupStore.removeGroup(groupId);
   };
 
+  const handleNameChangedEvent = (/** @type {String} */ groupId, /** @type {CustomEvent} */ event) => {
+    const newName = event.detail.payload;
+
+    console.log(`handleNameChangedEvent[${groupId}]`, newName);
+
+    GroupStore.renameGroup(groupId, newName);
+  };
+
   onMount(() => {});
 
   onDestroy(() => {
@@ -51,6 +59,7 @@
     <Group
       {groupInfo}
       on:click={() => handleDeleteGroup(groupInfo.id)}
+      on:nameChanged={(event) => handleNameChangedEvent(groupInfo.id, event)}
     />
   {/each}
 </ul>

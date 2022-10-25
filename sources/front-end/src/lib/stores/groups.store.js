@@ -41,6 +41,16 @@ function createGroupStore() {
 
       return currentState;
     }),
+    renameGroup: (groupId, newName) => update((currentState) => {
+      if (currentState.has(groupId) === true) {
+        const updatedGroupInfo = currentState.get(groupId);
+        updatedGroupInfo.name = newName;
+
+        currentState.set(groupId, updatedGroupInfo);
+      }
+
+      return currentState;
+    }),
   }
 }
 

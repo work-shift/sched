@@ -26,13 +26,13 @@
 		"@playwright/test": "^1.27.1",
 		"@sveltejs/adapter-node": "1.0.0-next.99",
 		"@sveltejs/kit": "next",
+		"eslint": "^8.26.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"eslint": "^8.26.0",
-		"prettier-plugin-svelte": "^2.8.0",
 		"prettier": "^2.7.1",
-		"svelte-check": "^2.9.2",
+		"prettier-plugin-svelte": "^2.8.0",
 		"svelte": "^3.52.0",
+		"svelte-check": "^2.9.2",
 		"typescript": "^4.8.4",
 		"vite": "^3.1.8"
 	},
@@ -41,6 +41,7 @@
 		"@types/d3": "^7.4.0",
 		"d3": "^7.6.1",
 		"inter-ui": "^3.19.3",
+		"svelte-gestures": "^1.4.1",
 		"xstate": "^4.33.6"
 	}
 }
