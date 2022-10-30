@@ -30,7 +30,7 @@
     align-items: center;
     justify-content: start;
 
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
   }
 
   div > input[type='text'] {
