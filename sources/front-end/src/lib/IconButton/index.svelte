@@ -15,7 +15,7 @@
     height: var(--main-button-height);
     aspect-ratio: 1 / 1;
     pointer-events: all;
-    border-radius: 50%;
+    /* border-radius: 50%; */
   }
 </style>
 

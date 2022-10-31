@@ -4,7 +4,7 @@
 :root {
   --main-font-family: "Inter var experimental";
   --main-color: var(--theme-white);
-  --main-background-color: var(--theme-black);
+  --main-background-color: var(--theme-dark_gray);
   --main-grid-gap: min(0.25vh, 0.25vw);
   --main-border-radius: max(0.25vh, 0.25vw);
 
@@ -12,6 +12,7 @@
 
   --main-height: 1fr;
   --footer-height: 8vh;
+  --footer-background-color: transparent;
 
   --group-height: 20vh;
 
@@ -85,6 +86,8 @@ main {
 
 footer {
   grid-area: footer;
+  background-color: var(--footer-background-color);
+  padding: min(0.5vh, 0.5vw) 0;
 }
 
 svg {
@@ -92,11 +95,13 @@ svg {
 }
 
 button {
-  background-color: var(--theme-light_gray_bright);
+  background-color: var(--theme-light_gray);
   border: none;
-  padding: max(1vh, 1vw);
+  border-radius: max(0.5vh, 0.5vw);
+  padding: max(0.5vh, 0.5vw);
 }
 
 button:active {
   background-color: var(--theme-black);
+  box-shadow: inset min(0.125vh, 0.125vw) min(0.125vh, 0.125vw) 1vh black, 0 0 1px var(--theme-darkest_white);
 }
