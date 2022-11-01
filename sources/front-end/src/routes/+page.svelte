@@ -19,7 +19,7 @@
           ...groupInfo,
         })
       })
-      .sort((a, b) => a.createdTs - b.createdTs);
+      .sort((a, b) => a.createdTs - b.createdTs)  ;
   });
 
   const handleDeleteGroup = (groupId) => {
