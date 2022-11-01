@@ -28,7 +28,7 @@ function createGroupStore() {
     addGroup: () => update((currentState) => {
       const id = crypto.randomUUID();
 
-      currentState.set(id, { id, createdTs: Date.now(), name: 'N/A' });
+      currentState.set(id, { id, createdTs: Date.now(), name: 'samowar' });
 
       return currentState;
     }),

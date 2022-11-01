@@ -8,6 +8,7 @@
   import {
     doubletap,
   } from '$lib/usages/doubletap';
+  import WeekGrid from './WeekGrid.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -46,7 +47,12 @@
 
 <style>
   li {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      'group-name week-grid'
+    ;
     width: 100%;
     min-height: var(--group-height);
     height: var(--group-height);
@@ -58,22 +64,21 @@
     pointer-events: all;
   }
 
-  .isVirtual {
-    border-color: var(--theme-darkest_white);
-  }
-
-  .name {
-    pointer-events: all;
+  .group-name {
+    grid-area: group-name;
     display: flex;
-    align-items: stretch;
-    width: 100%;
+    justify-content: start;
+    align-items: center;
   }
 </style>
 
-<li id={groupInfo.id} class:isVirtual class='name' use:doubletap on:doubletap={handleNameDoubleClick}>
-  <GroupName
-    name={groupInfo.name}
-    {isNameInEditMode}
-    on:change={handleNameChange}
-  />
+<!-- use:doubletap on:doubletap={handleNameDoubleClick} -->
+<!-- <GroupName
+  name={groupInfo.name}
+  {isNameInEditMode}
+  on:change={handleNameChange}
+/> -->
+<li id={groupInfo.id} class:isVirtual class='name'>
+  <section class='group-name'>{groupInfo.name}</section>
+  <WeekGrid />
 </li>
